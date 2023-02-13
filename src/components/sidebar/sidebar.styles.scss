@@ -1,0 +1,15 @@
+@mixin mobile{
+    @media screen and (max-width: 480px) {
+        @content;
+    }
+}
+
+.sidebar{
+    flex: 1;
+    background-color: #3e3c61;
+    position: relative;
+
+    @include mobile{
+        flex: 0.5;
+    }
+}

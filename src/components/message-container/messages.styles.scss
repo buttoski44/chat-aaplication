@@ -1,0 +1,17 @@
+@mixin mobile{
+    @media screen and (max-width: 480px) {
+        @content;
+    }
+}
+
+.messages{
+    background-color: #ddddf7;
+    padding: 10px;
+    height: calc(100% - 160px);
+    overflow: auto;
+    scrollbar-width: none;
+
+    @include mobile{
+        height: calc(100% - 140px);
+    }
+}
