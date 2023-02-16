@@ -9,72 +9,120 @@ import { useNavigate ,Link } from "react-router-dom";
 
 
 export const Register = () => {
-    const [err, setErr] = useState(false);
-    const navigate = useNavigate();
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const displayName = e.target[0].value;
-        const email = e.target[1].value;
-        const password = e.target[2].value;
-        const file = e.target[3].files[0];
-
-        try{
-          const response = await createUserWithEmailAndPassword(auth, email, password); 
-          const storageRef = ref(storage, displayName);
-          const uploadTask = uploadBytesResumable(storageRef, file);
-
-          uploadTask.on( 
-            (error) => {
-              console.log(error)
-              setErr(true);
-            }, 
-            () => {
-              getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
-                console.log("profile");
-                await updateProfile(response.user, {
-                  displayName,
-                  photoURL: downloadURL,
-                });
-                console.log("doc");
-                await setDoc(doc(db, "users", response.user.uid), {
-                  uid: response.user.uid,
-                  displayName,
-                  email,
-                  photoURL:downloadURL,
-                });
-
-                await setDoc(doc(db, "userChats", response.user.uid), {});
-                navigate("/");
+  const [err, setErr] = useState(false);
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+      const displayName = e.target[0].value;
+      const email = e.target[1].value;
+      const password = e.target[2].value;
+      const file = e.target[3].files[0];
+      try{
+        const response = await createUserWithEmailAndPassword(auth, email, password); 
+        const storageRef = ref(storage, displayName);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+        uploadTask.on( 
+          (error) => {
+            console.log(error)
+            setErr(true);
+          }, 
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
+              await updateProfile(response.user, {
+                displayName,
+                photoURL: downloadURL,
               });
-            }
-          );
-        }
-        catch(err){
-          setErr(true);
-        }
-    }
 
+              await setDoc(doc(db, "users", response.user.uid), {
+                uid: response.user.uid,
+                displayName,
+                email,
+                photoURL:downloadURL,
+              });
+              
+              await setDoc(doc(db, "userChats", response.user.uid), {});
+              navigate("/");
+            });
+          }
+        );
+      }
+      catch(err){
+        setErr(true);
+      }
+  }
 
-    return(
-        <div className="form-container">
-            <div className='form-wrapper'>
-                <span className="logo">Chat</span>
-                <span className="title">register</span>
-                <form onSubmit={handleSubmit}> 
-                    <input type="text" placeholder="display name"/>
-                    <input type="email" placeholder="email"/>
-                    <input type="password" placeholder="password"/>
-                    <label htmlFor="file">
-                        <img src={Add} alt="" />
-                        <span>Add an avatar</span>
-                    </label>
-                    <input type="file" id="file" style={{display: "none"}}/>
-                    <button>Sign up</button>
-                    {err && <span>Something went wrong</span> }
-                </form>
-                <p>You dont have an account ? <Link to="/login">Login</Link></p>
-            </div>
-        </div>
-    )
-}
+return(
+  <div className="form-container">
+      <div className='form-wrapper'>
+          <span className="logo">Chat</span>
+          <span className="title">register</span>
+          <form onSubmit={handleSubmit}> 
+              <input type="text" placeholder="display name"/>
+              <input type="email" placeholder="email"/>
+              <input type="password" placeholder="password"/>
+              <label htmlFor="file">
+                  <img src={Add} alt="" />
+                  <span>Add an avatar</span>
+              </label>
+              <input type="file" id="file" style={{display: "none"}}/>
+              <button>Sign up</button>
+              {err && <span>Something went wrong</span> }
+          </form>
+          <p>You dont have an account ? <Link to="/login">Login</Link></p>
+      </div>
+  </div>
+)}
+  // import "./register.styles.scss";
+  // import Add from  "../../assets/addAvatar.png";
+  // import { useState } from "react";
+  // import { signUp , uploadFileOnStorage ,createUserDocumentFromAuth} from "../../firebase/firebase";
+  // import { updateProfile} from "firebase/auth";
+  // import { getDownloadURL } from "firebase/storage";
+  // import { useNavigate ,Link } from "react-router-dom";
+  
+  
+  // export const Register = () => {
+  //     const [err, setErr] = useState(false);
+  //     const navigate = useNavigate();
+  
+  //     const handleSubmit = async (e) => {
+  //         e.preventDefault();
+  //         const displayName = e.target[0].value;
+  //         const email = e.target[1].value;
+  //         const password = e.target[2].value;
+  //         const file = e.target[3].files[0];
+  
+  //         try{
+  //           // const response = signUp(email, password); 
+  
+  //           // const uploadTask = uploadFileOnStorage(displayName, file);
+  //           // console.log(uploadTask);
+  
+  //           // uploadTask.on((error) => {
+  //           //     console.log("2");
+  //           //     setErr(true);
+  //           //   }, () => {
+  //           //     getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
+  //           //       await updateProfile(response.user, {
+  //           //         displayName,
+  //           //         photoURL: downloadURL,
+  //           //       });
+  
+  //           //       createUserDocumentFromAuth("users", response,{
+  //           //         uid: response.user.uid,
+  //           //         displayName,
+  //           //         email,
+  //           //         photoURL:downloadURL,
+  //           //       });
+  
+  //           //       createUserDocumentFromAuth("userChats", response, {});
+  //           //       navigate("/");
+  //           //     });
+  //           //   }
+  //           // );
+  //         }
+  //         catch(err){
+  //           console.log(err.message);
+  //           setErr(true);
+  //         }
+  //     }

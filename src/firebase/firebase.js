@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getStorage } from "firebase/storage";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getStorage, ref } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore"; 
 
 
 const firebaseConfig = {
@@ -17,9 +18,40 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
 
+export const login = async (email, password) => {
+  if(!email || !password) return;
+  const res = await signInWithEmailAndPassword(auth, email, password);
+  return res;
+}
+
+
 export const storage = getStorage();
 
+export const uploadFileOnStorage = async (displayName) => {
+
+  const storageRef = ref(storage, displayName)
+  return storageRef;
+}
+
+
 export const db = getFirestore();
+
+export const createUserDocumentFromAuth = async ( collection, response, additionalInformaton) => {
+  if(!response) return;
+  const userDocRef = doc(db, collection, response.user.uid);
+
+  const userSnapshot = await getDoc(userDocRef);
+
+  if(!userSnapshot.exists()){
+      try{
+          await setDoc(userDocRef,{...additionalInformaton})
+      }catch(error){
+          console.log("error creating user", error.message)
+      }
+  }
+
+  return userDocRef;
+}
 
 
 

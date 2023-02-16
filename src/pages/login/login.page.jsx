@@ -1,7 +1,6 @@
 import "../register/register.styles.scss";
 import { useState } from "react";
-import { auth } from "../../firebase/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { login } from "../../firebase/firebase";
 import { useNavigate ,Link } from "react-router-dom";
 
 export const Login = () => {
@@ -13,7 +12,7 @@ export const Login = () => {
         const email = e.target[0].value;
         const password = e.target[1].value;
         try{
-            await signInWithEmailAndPassword(auth, email, password);
+            login(email, password);
             navigate("/");
         }
         catch(err){
