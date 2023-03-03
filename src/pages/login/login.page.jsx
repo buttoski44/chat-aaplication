@@ -3,6 +3,7 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import { useNavigate ,Link } from "react-router-dom";
+import { ReactComponent as Logo } from "../../assets/logo.svg";
 
 export const Login = () => {
     const [err, setErr] = useState(false);
@@ -23,14 +24,14 @@ export const Login = () => {
 
     return(
         <div className="form-container">
+            {err && <span className="error">Something went wrong</span> }
             <div className='form-wrapper'>
-                <span className="logo">Chat</span>
+                <Logo className="logo"/>
                 <span className="title">Login</span>
                 <form onSubmit={handleSubmit}> 
                     <input type="email" placeholder="email"/>
                     <input type="password" placeholder="password"/>
                     <button>Sign up</button>
-                    {err && <span>Something went wrong</span> }
                     <p>You have an account ? <Link to="/register">Register</Link></p>
                 </form>
             </div>

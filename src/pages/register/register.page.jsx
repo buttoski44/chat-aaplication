@@ -6,7 +6,7 @@ import { createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore"; 
 import { useNavigate ,Link } from "react-router-dom";
-
+import { ReactComponent as Logo } from "../../assets/logo.svg";
 
 export const Register = () => {
   const [err, setErr] = useState(false);
@@ -54,7 +54,8 @@ export const Register = () => {
 return(
   <div className="form-container">
       <div className='form-wrapper'>
-          <span className="logo">Chat</span>
+          {err && <span className="error">Something went wrong</span> }
+          <Logo className="logo"/>
           <span className="title">register</span>
           <form onSubmit={handleSubmit}> 
               <input type="text" placeholder="display name"/>
@@ -66,7 +67,6 @@ return(
               </label>
               <input type="file" id="file" style={{display: "none"}}/>
               <button>Sign up</button>
-              {err && <span>Something went wrong</span> }
           </form>
           <p>You dont have an account ? <Link to="/login">Login</Link></p>
       </div>

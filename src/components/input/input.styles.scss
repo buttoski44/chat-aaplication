@@ -7,7 +7,7 @@
 .input{
     height: 50px;
     padding: 10px;
-    background-color: white;
+    background-color: #eeeeee;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -17,14 +17,15 @@
     }
 
     input{
+        background-color: transparent;
         width: 100%;
         border: none;
         outline: none;
-        color:  #2f2d52;
+        color:  #252422;
         font-size: 18px;
 
         &::placeholder{
-            color:lightgray;
+            color:rgb(175, 171, 171);
         }
     }
 
@@ -47,7 +48,16 @@
             border-radius: 10px;
             padding: 10px 15px;
             color: white;
-            background-color: #8da4f1;
+            background-color: #eb5e28;
+            cursor: pointer;
+            transition: all 0.2s;
+            &:hover{
+                transform: scale(0.95);
+            }
+
+            &:focus{
+                transform: scale(1.0);
+            }
         }
     }
 }
