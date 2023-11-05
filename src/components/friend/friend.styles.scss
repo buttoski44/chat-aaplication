@@ -80,7 +80,7 @@
             object-fit: cover;
         }
         
-        .user-chat-info[data-isopen=true]{
+        .user-chat-info{
             span{
                 font-size: 18px;
                 font-weight: 500;
@@ -98,20 +98,6 @@
             @include mobile{
             display: none;  
         }  
-        }
-
-        .user-chat-info {
-                display: block;
-                span{
-                    font-size: 18px;
-                    font-weight: 500;
-                }
-    
-                p{
-                    margin: 0;
-                    font-size: 14px;
-                    color: lightgray;
-                }
         }
     }
 }
