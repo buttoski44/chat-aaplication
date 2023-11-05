@@ -1,11 +1,10 @@
-import userEvent from "@testing-library/user-event";
 import { useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../../context/auth.context";
 import { ChatContext } from "../../context/chat.context";
 import "./message.styles.scss";
 
-export const Message = ({message}) => {
-    const { currentUser } = useContext(AuthContext);
+export const Message = ({ message }) => {
+  const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
 
   const ref = useRef();

@@ -5,28 +5,122 @@
 }
 
 .search{
-    border-bottom: 1px dotted gray;
-
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    border-bottom: 1px dotted #252422;
+    
     @include mobile{
-        display: none;
+        align-items: center;
     }
 
-    .search-form{
-        padding: 10px;
-
-        input{
-            background-color: transparent;
+    .toggle{
+        padding:2px;
+        display: flex;
+    justify-content: center;
+    align-items: center;
+        button{
+            display: none;
+            padding: 5px;
+            height: 35px;
+            width: 35px;
             border: none;
-            color: white;
-            outline: none;
-
-            &::placeholder{
-                color: lightgray;
+            background-color: transparent;
+            transition: background-color 0.2s;
+            border-radius: 100%;
+                 &:hover {
+                    background-color: #7c7974;
+                 }
+                 @include mobile{
+                    display: block;
+                }
+        }
+    
+        .search-form[data-isopen=true]{
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #403d39;
+    
+            input{
+                background-color: transparent;
+                border: none;
+                color: white;
+                outline: none;
+    
+                &::placeholder{
+                    color: lightgray;
+                }
+            }
+    
+            button {
+                height: 20px;
+                width: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0px;
+                border: none;
+                background-color: transparent;
+                transition: background-color 0.2s;
+                border-radius: 100%;
+                 &:hover {
+                    background-color: #7c7974;
+                 }
+            }
+            
+        }
+    
+        .search-form[data-isopen=false]{
+            @include mobile{
+            display: none;
+            }
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #403d39;
+    
+            input{
+                background-color: transparent;
+                border: none;
+                color: white;
+                outline: none;
+    
+                &::placeholder{
+                    color: lightgray;
+                }
+            }
+    
+            button {
+                height: 20px;
+                width: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0px;
+                border: none;
+                background-color: transparent;
+                transition: background-color 0.2s;
+                border-radius: 100%;
+                 &:hover {
+                    background-color: #7c7974;
+                 }
             }
         }
-        
+
     }
+
+    span {
+        padding: 10px;
+        text-align: center;
+        color: #7c7974;
+    }
+
+
     .user-chat{
+        width: 92%;
         padding: 10px;
         display: flex;
         align-items: center;
@@ -35,7 +129,7 @@
         cursor: pointer;
 
         &:hover{
-            background-color: #2f2d52;
+            background-color: #252422;
         }
 
         img{
@@ -45,8 +139,9 @@
             object-fit: cover;
         }
         
-        .user-chat-info{
+        .user-chat-info[data-isopen=true]{
             span{
+                padding: 0px;
                 font-size: 18px;
                 font-weight: 500;
             }
@@ -56,12 +151,13 @@
                 font-size: 14px;
                 color: lightgray;
             }
-
-            @include mobile{
-                display: none;
-            }
-
         }
+        .user-chat-info[data-isopen=false]{
+            display: none;
+        }
+
+        
+        
     }
 
 }

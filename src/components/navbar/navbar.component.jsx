@@ -4,16 +4,19 @@ import { auth } from "../../firebase/firebase";
 import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 import { ReactComponent as Logo } from "../../assets/logo.svg";
+import { ReactComponent as EmptyProfile } from "../../assets/empty-profile.svg";
 export const Navbar = () => {
     const { currentUser } = useContext(AuthContext);
 
-    return(
+    return (
         <div className="navbar">
-            <Logo className="logo"/>
+            <Logo className="logo" />
             <div className="user">
                 <span>{currentUser.displayName}</span>
-                <img src={currentUser.photoURL} alt="" />
-                <button onClick={ () => signOut(auth)}>logout</button>
+                {
+                    <img src={currentUser.photoURL} alt="" />
+                }
+                <button onClick={() => signOut(auth)}>logout</button>
             </div>
         </div>
     )
